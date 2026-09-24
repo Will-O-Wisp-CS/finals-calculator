@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>スイスドロー決勝進出計算</title>
+  </head>
+  <body>
+    <main>
+      <h1>スイスドロー決勝進出計算</h1>
+      <p class="lead">
+        参加人数から、予選の成績分布と決勝トーナメント進出人数の確率を計算します。
+        全試合の勝率50%・引き分けなしを仮定しています。
+      </p>
+      <form id="form" novalidate>
+        <label for="players">参加人数（25〜128人）</label>
+        <div class="input-row">
+          <input id="players" type="text" inputmode="numeric" autocomplete="off" />
+          <button type="submit">計算</button>
+        </div>
+        <p id="error" class="error" role="alert"></p>
+      </form>
+      <div id="results"></div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
