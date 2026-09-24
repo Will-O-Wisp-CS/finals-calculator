@@ -7,6 +7,10 @@ describe('parsePlayers', () => {
     expect(parsePlayers(' 128 ')).toEqual({ ok: true, value: 128 });
   });
 
+  it('全角数字を受け付ける', () => {
+    expect(parsePlayers('３２')).toEqual({ ok: true, value: 32 });
+  });
+
   it('空欄はエラー', () => {
     expect(parsePlayers('')).toEqual({ ok: false, message: '参加人数を入力してください' });
   });

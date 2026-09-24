@@ -39,6 +39,14 @@ describe('calculate', () => {
     expect(r.prob5).toBeCloseTo(1 - 0.7890625, 12);
     expect(r.records5.length).toBe(6);
     expect(r.records6.length).toBe(7);
+    expect(r.finals.map((f) => [f.advance, f.byes, f.seedingRule])).toEqual([
+      [14, 2, false],
+      [15, 1, false],
+      [16, 0, true],
+    ]);
+    expect(r.finals[0].prob).toBeCloseTo(0.30078125, 12);
+    expect(r.finals[1].prob).toBeCloseTo(0.48828125, 12);
+    expect(r.finals[2].prob).toBeCloseTo(0.2109375, 12);
   });
 
   it('全人数で確率の整合性が取れ、対象外ケースは起きない', () => {
