@@ -6,10 +6,6 @@ describe('calculate', () => {
     const r = calculate(64);
     expect(r.prob5).toBe(1);
     expect(r.prob6).toBe(0);
-    expect(r.records6).toEqual([]);
-    expect(r.records5[0]).toEqual({ wins: 5, losses: 0, counts: [{ count: 2, prob: 1 }] });
-    expect(r.records5[1]).toEqual({ wins: 4, losses: 1, counts: [{ count: 10, prob: 1 }] });
-    expect(r.records5).toHaveLength(6);
     expect(r.finals).toEqual([{ advance: 14, byes: 2, seedingRule: false, prob: 1 }]);
     expect(r.outOfScopeProb).toBe(0);
   });
@@ -18,10 +14,6 @@ describe('calculate', () => {
     const r = calculate(128);
     expect(r.prob5).toBe(0);
     expect(r.prob6).toBe(1);
-    expect(r.records5).toEqual([]);
-    expect(r.records6[0]).toEqual({ wins: 6, losses: 0, counts: [{ count: 2, prob: 1 }] });
-    expect(r.records6[1]).toEqual({ wins: 5, losses: 1, counts: [{ count: 12, prob: 1 }] });
-    expect(r.records6).toHaveLength(7);
     expect(r.finals).toEqual([{ advance: 14, byes: 2, seedingRule: false, prob: 1 }]);
   });
 
@@ -37,8 +29,6 @@ describe('calculate', () => {
     const r = calculate(90);
     expect(r.prob6).toBeCloseTo(0.7890625, 12);
     expect(r.prob5).toBeCloseTo(1 - 0.7890625, 12);
-    expect(r.records5.length).toBe(6);
-    expect(r.records6.length).toBe(7);
     expect(r.finals.map((f) => [f.advance, f.byes, f.seedingRule])).toEqual([
       [14, 2, false],
       [15, 1, false],
@@ -56,9 +46,6 @@ describe('calculate', () => {
       const finalsTotal = r.finals.reduce((s, f) => s + f.prob, 0);
       expect(finalsTotal + r.outOfScopeProb).toBeCloseTo(1, 12);
       expect(r.outOfScopeProb).toBe(0);
-      for (const row of [...r.records5, ...r.records6]) {
-        expect(row.counts.reduce((s, c) => s + c.prob, 0)).toBeCloseTo(1, 12);
-      }
     }
   });
 

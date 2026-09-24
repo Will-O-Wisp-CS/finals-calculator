@@ -6,17 +6,6 @@ export const MAX_PLAYERS = 128;
 /** 5回戦終了時の (4-1 + 5-0) がこれを超えたら6回戦 */
 const SIXTH_ROUND_THRESHOLD = 16;
 
-export interface CountProb {
-  count: number;
-  prob: number;
-}
-
-export interface RecordRow {
-  wins: number;
-  losses: number;
-  counts: CountProb[];
-}
-
 export interface FinalsRow {
   advance: number;
   byes: number;
@@ -27,8 +16,6 @@ export interface FinalsRow {
 export interface TournamentResult {
   prob5: number;
   prob6: number;
-  records5: RecordRow[];
-  records6: RecordRow[];
   finals: FinalsRow[];
   outOfScopeProb: number;
 }
@@ -67,8 +54,6 @@ export function calculate(players: number): TournamentResult {
   return {
     prob5: sumProb(ended5),
     prob6: sumProb(ended6),
-    records5: recordRows(ended5, 5),
-    records6: recordRows(ended6, 6),
     finals: [...finals.values()].sort(
       (a, b) => a.advance - b.advance || a.byes - b.byes || Number(a.seedingRule) - Number(b.seedingRule),
     ),
@@ -80,21 +65,3 @@ function sumProb(outcomes: Outcome[]): number {
   return outcomes.reduce((s, o) => s + o.prob, 0);
 }
 
-/** 終了回戦数を条件とした、成績ごとの人数分布 */
-function recordRows(outcomes: Outcome[], rounds: number): RecordRow[] {
-  const total = sumProb(outcomes);
-  if (total === 0) return [];
-  const rows: RecordRow[] = [];
-  for (let wins = rounds; wins >= 0; wins--) {
-    const byCount = new Map<number, number>();
-    for (const o of outcomes) {
-      const count = o.state[wins];
-      byCount.set(count, (byCount.get(count) ?? 0) + o.prob / total);
-    }
-    const counts = [...byCount]
-      .map(([count, prob]) => ({ count, prob }))
-      .sort((a, b) => a.count - b.count);
-    rows.push({ wins, losses: rounds - wins, counts });
-  }
-  return rows;
-}

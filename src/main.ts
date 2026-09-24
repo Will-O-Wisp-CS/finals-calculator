@@ -1,7 +1,7 @@
 import './style.css';
 import { formatPercent } from './format';
 import { parsePlayers } from './input';
-import { calculate, type RecordRow, type TournamentResult } from './tournament';
+import { calculate, type TournamentResult } from './tournament';
 
 const form = document.querySelector<HTMLFormElement>('#form')!;
 const input = document.querySelector<HTMLInputElement>('#players')!;
@@ -43,12 +43,6 @@ function render(r: TournamentResult): void {
       ),
     ),
   );
-  if (r.records5.length > 0) {
-    blocks.push(section('最終成績の分布（5回戦で終了した場合）', recordTable(r.records5)));
-  }
-  if (r.records6.length > 0) {
-    blocks.push(section('最終成績の分布（6回戦になった場合）', recordTable(r.records6)));
-  }
   blocks.push(
     section(
       '決勝トーナメント',
@@ -64,16 +58,6 @@ function render(r: TournamentResult): void {
     ),
   );
   results.replaceChildren(...blocks);
-}
-
-function recordTable(rows: RecordRow[]): HTMLElement {
-  return table(
-    ['成績', '人数（確率）'],
-    rows.map((row) => [
-      `${row.wins}-${row.losses}`,
-      row.counts.map((c) => `${c.count}人 (${formatPercent(c.prob)})`).join(' / '),
-    ]),
-  );
 }
 
 function section(title: string, content: HTMLElement): HTMLElement {
