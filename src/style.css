@@ -53,6 +53,45 @@ body {
     radial-gradient(34rem 28rem at 60% 108%, rgba(220, 38, 38, 0.08), transparent 70%);
 }
 
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 10px 16px;
+  text-align: center;
+  background: var(--accent);
+  box-shadow: 0 2px 12px rgba(220, 38, 38, 0.2);
+}
+
+.site-header p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--on-accent);
+}
+
+.site-header a {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  color: var(--red);
+  background: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: transform 0.15s;
+}
+
+.site-header a:hover {
+  transform: translateY(-1px);
+}
+
+.site-header a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
 main {
   position: relative;
   z-index: 1;

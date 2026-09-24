@@ -1,4 +1,5 @@
 import './style.css';
+import { buildEntryUrl } from './entryLink';
 import { formatPercent } from './format';
 import { parsePlayers } from './input';
 import { calculate, type FinalsRow, type TournamentResult } from './tournament';
@@ -7,6 +8,14 @@ const form = document.querySelector<HTMLFormElement>('#form')!;
 const input = document.querySelector<HTMLInputElement>('#players')!;
 const error = document.querySelector<HTMLParagraphElement>('#error')!;
 const results = document.querySelector<HTMLDivElement>('#results')!;
+const entryLink = document.querySelector<HTMLAnchorElement>('#entry-link')!;
+
+// 開いた日以降の大会だけが表示されるよう、クリック時点の日付を入れる
+const updateEntryLink = () => {
+  entryLink.href = buildEntryUrl(new Date());
+};
+updateEntryLink();
+entryLink.addEventListener('click', updateEntryLink);
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
