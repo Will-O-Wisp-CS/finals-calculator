@@ -9,6 +9,7 @@ const SIXTH_ROUND_THRESHOLD = 16;
 export interface FinalsRow {
   advance: number;
   byes: number;
+  twoLoss: number;
   seedingRule: boolean;
   prob: number;
 }
@@ -44,7 +45,7 @@ export function calculate(players: number): TournamentResult {
         outOfScopeProb += o.prob;
         continue;
       }
-      const key = `${f.advance}|${f.byes}|${f.seedingRule}`;
+      const key = `${f.advance}|${f.byes}|${f.twoLoss}|${f.seedingRule}`;
       const row = finals.get(key);
       if (row) row.prob += o.prob;
       else finals.set(key, { ...f, prob: o.prob });
@@ -55,7 +56,11 @@ export function calculate(players: number): TournamentResult {
     prob5: sumProb(ended5),
     prob6: sumProb(ended6),
     finals: [...finals.values()].sort(
-      (a, b) => a.advance - b.advance || a.byes - b.byes || Number(a.seedingRule) - Number(b.seedingRule),
+      (a, b) =>
+        a.advance - b.advance ||
+        a.byes - b.byes ||
+        a.twoLoss - b.twoLoss ||
+        Number(a.seedingRule) - Number(b.seedingRule),
     ),
     outOfScopeProb,
   };

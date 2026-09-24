@@ -3,6 +3,8 @@ export interface FinalsResult {
   advance: number;
   /** 1回戦Byeになる全勝者の人数 */
   byes: number;
+  /** 2敗のプレイヤーから進出する人数 */
+  twoLoss: number;
   /** 決勝全試合で予選勝利数の多いプレイヤーが先攻になるか */
   seedingRule: boolean;
 }
@@ -16,8 +18,9 @@ export function decideFinals(undefeated: number, oneLoss: number): FinalsResult 
   if (guaranteed > 16) return null;
   const bracket = guaranteed <= 8 ? 8 : 16;
   // Byeの全勝者は自分と空いた対戦相手の2枠を使う
-  if (oneLoss + undefeated * 2 > bracket) {
-    return { advance: bracket, byes: 0, seedingRule: true };
-  }
-  return { advance: bracket - undefeated, byes: undefeated, seedingRule: false };
+  const seedingRule = oneLoss + undefeated * 2 > bracket;
+  const byes = seedingRule ? 0 : undefeated;
+  const advance = bracket - byes;
+  // 全勝・1敗で埋まらない枠は2敗のプレイヤーから進出する
+  return { advance, byes, twoLoss: advance - guaranteed, seedingRule };
 }

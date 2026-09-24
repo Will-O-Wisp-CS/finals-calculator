@@ -38,9 +38,8 @@ function render(players: number, r: TournamentResult): void {
   rounds.append(stat('5回戦で終了', r.prob5), stat('6回戦になる', r.prob6));
   blocks.push(card('予選の回数', rounds));
 
-  const best = Math.max(...r.finals.map((f) => f.prob));
   const list = el('ul', '', 'finals');
-  for (const f of r.finals) list.append(finalsItem(f, f.prob === best));
+  for (const f of r.finals) list.append(finalsItem(f));
   blocks.push(card('決勝トーナメント進出人数', list));
 
   const summary = el('p', `参加 ${players}人 の計算結果`, 'result-caption');
@@ -53,15 +52,17 @@ function stat(label: string, prob: number): HTMLElement {
   return s;
 }
 
-function finalsItem(f: FinalsRow, isBest: boolean): HTMLElement {
-  const li = el('li', '', isBest ? 'finals-item is-best' : 'finals-item');
+function finalsItem(f: FinalsRow): HTMLElement {
+  const li = el('li', '', 'finals-item');
   const head = el('div', '', 'finals-head');
   const count = el('p', '', 'finals-count');
   count.append(el('span', String(f.advance), 'finals-number'), el('span', '人進出', 'finals-unit'));
   const tags = el('div', '', 'tags');
-  tags.append(el('span', f.byes > 0 ? `Bye ${f.byes}人` : 'Byeなし', 'tag'));
-  if (f.seedingRule) tags.append(el('span', '勝利数が多い方が先攻', 'tag tag-accent'));
-  if (isBest) tags.append(el('span', '最有力', 'tag tag-best'));
+  tags.append(
+    el('span', f.byes > 0 ? `Bye ${f.byes}人` : 'Byeなし', 'tag tag-bye'),
+    el('span', `2敗から ${f.twoLoss}人進出`, 'tag tag-two-loss'),
+  );
+  if (f.seedingRule) tags.append(el('span', '勝利数が多い方が先攻', 'tag tag-seeding'));
   head.append(count, el('p', formatPercent(f.prob), 'finals-prob'));
   li.append(head, tags, bar(f.prob));
   return li;
