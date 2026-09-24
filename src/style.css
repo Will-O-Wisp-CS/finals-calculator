@@ -71,6 +71,12 @@ body {
   color: var(--on-accent);
 }
 
+.site-header .site-header-sub {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
 .site-header a {
   display: inline-block;
   margin-left: 6px;
