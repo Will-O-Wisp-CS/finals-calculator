@@ -6,7 +6,9 @@ describe('calculate', () => {
     const r = calculate(64);
     expect(r.prob5).toBe(1);
     expect(r.prob6).toBe(0);
-    expect(r.finals).toEqual([{ advance: 14, byes: 2, twoLoss: 2, seedingRule: false, prob: 1 }]);
+    expect(r.finals).toEqual([
+      { advance: 14, byes: 2, twoLossMin: 2, twoLossMax: 2, seedingRule: false, prob: 1 },
+    ]);
     expect(r.outOfScopeProb).toBe(0);
   });
 
@@ -14,17 +16,16 @@ describe('calculate', () => {
     const r = calculate(128);
     expect(r.prob5).toBe(0);
     expect(r.prob6).toBe(1);
-    expect(r.finals).toEqual([{ advance: 14, byes: 2, twoLoss: 0, seedingRule: false, prob: 1 }]);
+    expect(r.finals).toEqual([
+      { advance: 14, byes: 2, twoLossMin: 0, twoLossMax: 0, seedingRule: false, prob: 1 },
+    ]);
   });
 
-  it('25人: 進出人数・Bye・2敗進出人数の組み合わせごとの確率', () => {
+  it('25人: 2敗からの進出人数は幅でまとめる', () => {
     const r = calculate(25);
     expect(r.finals).toEqual([
-      { advance: 7, byes: 1, twoLoss: 1, seedingRule: false, prob: 0.03125 },
-      { advance: 7, byes: 1, twoLoss: 2, seedingRule: false, prob: 0.5703125 },
-      { advance: 7, byes: 1, twoLoss: 3, seedingRule: false, prob: 0.2109375 },
-      { advance: 8, byes: 0, twoLoss: 2, seedingRule: false, prob: 0.0546875 },
-      { advance: 8, byes: 0, twoLoss: 3, seedingRule: false, prob: 0.1328125 },
+      { advance: 7, byes: 1, twoLossMin: 1, twoLossMax: 3, seedingRule: false, prob: 0.8125 },
+      { advance: 8, byes: 0, twoLossMin: 2, twoLossMax: 3, seedingRule: false, prob: 0.1875 },
     ]);
   });
 
@@ -32,15 +33,12 @@ describe('calculate', () => {
     const r = calculate(90);
     expect(r.prob6).toBeCloseTo(0.7890625, 12);
     expect(r.prob5).toBeCloseTo(1 - 0.7890625, 12);
-    expect(r.finals.map((f) => [f.advance, f.byes, f.twoLoss, f.seedingRule])).toEqual([
-      [14, 2, 4, false],
-      [14, 2, 5, false],
-      [15, 1, 4, false],
-      [15, 1, 5, false],
-      [15, 1, 6, false],
-      [16, 0, 0, true],
+    expect(r.finals.map((f) => [f.advance, f.byes, f.twoLossMin, f.twoLossMax, f.seedingRule])).toEqual([
+      [14, 2, 4, 5, false],
+      [15, 1, 4, 6, false],
+      [16, 0, 0, 0, true],
     ]);
-    const probs = [0.158203125, 0.142578125, 0.158203125, 0.263671875, 0.06640625, 0.2109375];
+    const probs = [0.30078125, 0.48828125, 0.2109375];
     r.finals.forEach((f, i) => expect(f.prob).toBeCloseTo(probs[i], 12));
   });
 

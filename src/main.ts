@@ -60,12 +60,16 @@ function finalsItem(f: FinalsRow): HTMLElement {
   const tags = el('div', '', 'tags');
   tags.append(
     el('span', f.byes > 0 ? `Bye ${f.byes}人` : 'Byeなし', 'tag tag-bye'),
-    el('span', `2敗から ${f.twoLoss}人進出`, 'tag tag-two-loss'),
+    el('span', `2敗から ${twoLossRange(f)}人進出`, 'tag tag-two-loss'),
   );
   if (f.seedingRule) tags.append(el('span', '勝利数が多い方が先攻', 'tag tag-seeding'));
   head.append(count, el('p', formatPercent(f.prob), 'finals-prob'));
   li.append(head, tags, bar(f.prob));
   return li;
+}
+
+function twoLossRange(f: FinalsRow): string {
+  return f.twoLossMin === f.twoLossMax ? `${f.twoLossMin}` : `${f.twoLossMin}〜${f.twoLossMax}`;
 }
 
 function bar(prob: number): HTMLElement {

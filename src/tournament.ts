@@ -9,7 +9,9 @@ const SIXTH_ROUND_THRESHOLD = 16;
 export interface FinalsRow {
   advance: number;
   byes: number;
-  twoLoss: number;
+  /** 2敗から進出する人数の最小〜最大 */
+  twoLossMin: number;
+  twoLossMax: number;
   seedingRule: boolean;
   prob: number;
 }
@@ -45,10 +47,22 @@ export function calculate(players: number): TournamentResult {
         outOfScopeProb += o.prob;
         continue;
       }
-      const key = `${f.advance}|${f.byes}|${f.twoLoss}|${f.seedingRule}`;
+      const key = `${f.advance}|${f.byes}|${f.seedingRule}`;
       const row = finals.get(key);
-      if (row) row.prob += o.prob;
-      else finals.set(key, { ...f, prob: o.prob });
+      if (row) {
+        row.prob += o.prob;
+        row.twoLossMin = Math.min(row.twoLossMin, f.twoLoss);
+        row.twoLossMax = Math.max(row.twoLossMax, f.twoLoss);
+      } else {
+        finals.set(key, {
+          advance: f.advance,
+          byes: f.byes,
+          twoLossMin: f.twoLoss,
+          twoLossMax: f.twoLoss,
+          seedingRule: f.seedingRule,
+          prob: o.prob,
+        });
+      }
     }
   }
 
@@ -59,7 +73,6 @@ export function calculate(players: number): TournamentResult {
       (a, b) =>
         a.advance - b.advance ||
         a.byes - b.byes ||
-        a.twoLoss - b.twoLoss ||
         Number(a.seedingRule) - Number(b.seedingRule),
     ),
     outOfScopeProb,
