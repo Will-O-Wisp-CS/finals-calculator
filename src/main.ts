@@ -1,4 +1,5 @@
 import './style.css';
+import { card, el } from './dom';
 import { buildEntryUrl } from './entryLink';
 import { formatPercent } from './format';
 import { parsePlayers } from './input';
@@ -88,17 +89,4 @@ function bar(prob: number): HTMLElement {
   fill.style.setProperty('--p', String(prob));
   track.append(fill);
   return track;
-}
-
-function card(title: string, content: HTMLElement): HTMLElement {
-  const s = el('section', '', 'card result');
-  s.append(el('h2', title, 'card-title'), content);
-  return s;
-}
-
-function el(tag: string, text: string, className?: string): HTMLElement {
-  const e = document.createElement(tag);
-  e.textContent = text;
-  if (className) e.className = className;
-  return e;
 }

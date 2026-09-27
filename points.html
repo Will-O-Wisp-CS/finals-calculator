@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfbfd" />
+    <title>【鬼火CS】DMPランキングポイント計算ツール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+    <header class="site-header">
+      <p>
+        鬼火CS参加表明は<a
+          id="entry-link"
+          href="https://www.dmp-ranking.com/schedule.asp?Search=Search&amp;Meisho=%8B%53%89%CE"
+          target="_blank"
+          rel="noopener noreferrer"
+          >コチラ</a
+        >
+      </p>
+      <p class="site-header-sub">参加表明で抽選会のチャンス！</p>
+    </header>
+    <main>
+      <nav class="site-nav" aria-label="ツール切り替え">
+        <a href="./index.html">進出人数計算</a>
+        <a href="./points.html" aria-current="page">ポイント計算</a>
+      </nav>
+
+      <header class="hero">
+        <p class="eyebrow">鬼火CS</p>
+        <h1><span class="sr-only">【鬼火CS】</span>DMPランキング<br />ポイント計算ツール</h1>
+      </header>
+
+      <section class="card calc" aria-labelledby="calc-title">
+        <h2 id="calc-title" class="card-title">計算する</h2>
+        <form id="form" novalidate>
+          <div class="field">
+            <label for="rank">順位</label>
+            <input id="rank" type="text" inputmode="numeric" autocomplete="off" placeholder="例: 10" aria-describedby="rank-error" />
+            <p id="rank-error" class="error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="players">参加人数</label>
+            <input id="players" type="text" inputmode="numeric" autocomplete="off" placeholder="例: 64" aria-describedby="players-error" />
+            <p id="players-error" class="error" role="alert"></p>
+          </div>
+          <fieldset class="judge">
+            <legend>ジャッジ</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="judge" value="no" checked />なし<span class="hint">×1.0</span></label>
+              <label class="choice"><input type="radio" name="judge" value="yes" />あり<span class="hint">×1.2</span></label>
+            </div>
+          </fieldset>
+          <button type="submit" class="submit-wide">計算</button>
+        </form>
+        <ul class="premise" aria-label="前提条件">
+          <li>小数点以下は切り捨て（公式の端数処理は未確定）</li>
+        </ul>
+      </section>
+
+      <div id="results" aria-live="polite"></div>
+
+      <footer class="footer">鬼火CS</footer>
+    </main>
+    <script type="module" src="/src/pointsMain.ts"></script>
+  </body>
+</html>
