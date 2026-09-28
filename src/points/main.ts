@@ -1,8 +1,8 @@
-import './style.css';
-import { card, el } from './dom';
-import { buildEntryUrl } from './entryLink';
+import '../shared/style.css';
+import { card, el } from '../shared/dom';
+import { buildEntryUrl } from '../shared/entryLink';
 import { calculatePoints, MIN_ELIGIBLE_PLAYERS, type PointsResult } from './points';
-import { parsePointsForm } from './pointsInput';
+import { parsePointsForm } from './input';
 
 const form = document.querySelector<HTMLFormElement>('#form')!;
 const rankInput = document.querySelector<HTMLInputElement>('#rank')!;

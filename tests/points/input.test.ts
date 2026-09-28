@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parsePointsForm, parsePositiveInt } from '../src/pointsInput';
+import { parsePointsForm, parsePositiveInt } from '../../src/points/input';
 
 describe('parsePositiveInt', () => {
   it('1以上の整数を受け付ける（前後の空白は無視）', () => {

@@ -1,6 +1,6 @@
-import './style.css';
-import { card, el } from './dom';
-import { buildEntryUrl } from './entryLink';
+import '../shared/style.css';
+import { card, el } from '../shared/dom';
+import { buildEntryUrl } from '../shared/entryLink';
 import { formatPercent } from './format';
 import { parsePlayers } from './input';
 import { calculate, type FinalsRow, type TournamentResult } from './tournament';

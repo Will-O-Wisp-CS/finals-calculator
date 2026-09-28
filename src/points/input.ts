@@ -1,4 +1,4 @@
-import type { ParseResult } from './input';
+import type { ParseResult } from '../shared/parse';
 
 export function parsePositiveInt(raw: string, label: string): ParseResult {
   const text = raw.normalize('NFKC').trim();

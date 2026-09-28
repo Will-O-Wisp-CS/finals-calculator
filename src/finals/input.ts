@@ -1,6 +1,5 @@
+import type { ParseResult } from '../shared/parse';
 import { MAX_PLAYERS, MIN_PLAYERS } from './tournament';
-
-export type ParseResult = { ok: true; value: number } | { ok: false; message: string };
 
 export function parsePlayers(raw: string): ParseResult {
   const text = raw.normalize('NFKC').trim();
