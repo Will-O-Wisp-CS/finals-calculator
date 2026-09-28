@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { basePoints, calculatePoints, participantTier } from '../../src/points/points';
+import { basePoints, calculatePoints, participantTier } from './points';
 
 describe('basePoints', () => {
   it('順位帯ごとの基礎ポイントを返す（境界値）', () => {

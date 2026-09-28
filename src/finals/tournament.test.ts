@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculate, MAX_PLAYERS, MIN_PLAYERS } from '../../src/finals/tournament';
+import { calculate, MAX_PLAYERS, MIN_PLAYERS } from './tournament';
 
 describe('calculate', () => {
   it('64人: 5回戦で確定終了、全勝2・1敗10 → 14人進出・Bye2・2敗から2人', () => {

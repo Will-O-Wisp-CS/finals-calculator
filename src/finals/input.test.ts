@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parsePlayers } from '../../src/finals/input';
+import { parsePlayers } from './input';
 
 describe('parsePlayers', () => {
   it('範囲内の整数を受け付ける（前後の空白は無視）', () => {

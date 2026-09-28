@@ -20,18 +20,22 @@ npm run build   # tsc + vite build → dist/
 ## フォルダ構成
 
 ```
-index.html, points.html   各ページ（Vite マルチページ。vite.config.ts の rolldownOptions.input に登録）
-src/
+.claude/     CLAUDE.md（このファイル）、launch.json（開発サーバー設定。git 管理外）
+.github/     GitHub Actions（Pages デプロイ）
+docs/superpowers/specs, plans   設計書と実装計画
+src/         Vite の root。HTML・ソース・テストはすべてここ
+  index.html, points.html   各ページ（vite.config.ts の rolldownOptions.input に登録）
   finals/    進出人数計算: main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: main.ts(DOM) / input.ts / points.ts
   shared/    両ページ共通: dom.ts(el, card) / entryLink.ts / parse.ts(ParseResult) / style.css
-tests/       src と同じ構成（tests/finals, tests/points, tests/shared）
-docs/superpowers/specs, plans   設計書と実装計画
+ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
 
+- ルート直下にはツールが要求する設定ファイル以外を置かない。フォルダも増やさない
+- テストは対象ファイルの隣に `*.test.ts` として置く（例: `src/points/points.test.ts`）
 - 各機能は `main.ts` だけが DOM を触り、計算・パースは純粋関数に分けてテストする
 - 機能フォルダ同士は import しない。共通のものは `shared/` に置く
-- ページを追加するときは HTML をルートに置き、`vite.config.ts` の input と両ページの `.site-nav` に追加する
+- ページを追加するときは HTML を `src/` 直下に置き、`vite.config.ts` の input と各ページの `.site-nav` に追加する。ビルド後は `dist/` 直下に出るので公開URLは `/<名前>.html`
 
 ## 規約
 

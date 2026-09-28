@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatPercent } from '../../src/finals/format';
+import { formatPercent } from './format';
 
 describe('formatPercent', () => {
   it('小数1桁で表示し、末尾の .0 は省く', () => {

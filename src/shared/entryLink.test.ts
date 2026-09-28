@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ENTRY_SEARCH_URL, buildEntryUrl } from '../../src/shared/entryLink';
+import { ENTRY_SEARCH_URL, buildEntryUrl } from './entryLink';
 
 describe('buildEntryUrl', () => {
   it('大会名「鬼火」(Shift_JIS) で検索し、開催日の開始を指定日にする', () => {

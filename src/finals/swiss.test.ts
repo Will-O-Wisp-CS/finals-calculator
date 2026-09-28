@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { advance, playRound, type Outcome } from '../../src/finals/swiss';
+import { advance, playRound, type Outcome } from './swiss';
 
 const sortByKey = (outcomes: Outcome[]) =>
   [...outcomes].sort((a, b) => a.state.join(',').localeCompare(b.state.join(',')));

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { decideFinals } from '../../src/finals/finals';
+import { decideFinals } from './finals';
 
 describe('decideFinals', () => {
   it('全勝3・1敗12: 18枠必要で16枠に収まらない → 16人・Byeなし・先攻ルール', () => {
