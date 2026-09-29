@@ -137,6 +137,25 @@ main {
   box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
 }
 
+a.eyebrow {
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+a.eyebrow:hover {
+  transform: translateY(-1px);
+}
+
+a.eyebrow:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.hero-lead {
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
 h1 {
   margin: 0;
   font-size: clamp(1.75rem, 6vw, 2.5rem);
@@ -850,6 +869,70 @@ button:focus-visible {
     font-weight: 700;
     color: var(--muted);
   }
+}
+
+/* ---------- Hub ---------- */
+
+.hub {
+  display: grid;
+  gap: 12px;
+}
+
+.hub-card {
+  display: block;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  text-decoration: none;
+  background: var(--surface);
+  box-shadow:
+    0 1px 2px rgba(28, 24, 38, 0.04),
+    0 10px 30px rgba(28, 24, 38, 0.06);
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
+}
+
+.hub-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.hub-card:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.hub-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.hub-title::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 1.1em;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.hub-title::after {
+  content: "→";
+  margin-left: auto;
+  color: var(--faint);
+}
+
+.hub-desc {
+  display: block;
+  margin-top: 4px;
+  padding-left: 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .footer {

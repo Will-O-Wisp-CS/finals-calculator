@@ -2,9 +2,12 @@
 
 鬼火CS（デュエル・マスターズの大会）向けの静的サイト。GitHub Pages で公開。
 
-- `index.html` — 決勝トーナメント進出人数計算（スイスドロー予選の確率計算）
-- `points.html` — DMPランキングポイント計算（順位・参加人数・ジャッジ有無から獲得pt）
-- `schedule.html` — 鬼火CS 大会スケジュール（dmp-ranking.com の大会日程から毎日自動取得）
+公開URLは https://will-o-wisp-cs.github.io/ （リポジトリ名 `will-o-wisp-cs.github.io` のユーザーサイト）。
+
+- `/` — メインページ（紹介文と各ページへのカード）
+- `/finals/` — 決勝トーナメント進出人数計算（スイスドロー予選の確率計算）
+- `/points/` — DMPランキングポイント計算（順位・参加人数・ジャッジ有無から獲得pt）
+- `/schedule/` — 鬼火CS 大会スケジュール（dmp-ranking.com の大会日程から毎日自動取得）
 
 ## 技術構成
 
@@ -27,10 +30,11 @@ npm run fetch-schedule   # dmp-ranking.com から src/schedule/events.json を�
 .github/     GitHub Actions（Pages デプロイ）
 docs/superpowers/specs, plans   設計書と実装計画
 src/         Vite の root。HTML・ソース・テストはすべてここ
-  index.html, points.html   各ページ（vite.config.ts の rolldownOptions.input に登録）
-  finals/    進出人数計算: main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
-  points/    ポイント計算: main.ts(DOM) / input.ts / points.ts
-  schedule/  大会スケジュール: main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
+  index.html メインページ。各ページの HTML は機能フォルダの index.html（すべて vite.config.ts の rolldownOptions.input に登録）
+  home/      メインページ: main.ts(参加表明リンクの更新のみ)
+  finals/    進出人数計算: index.html / main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
+  points/    ポイント計算: index.html / main.ts(DOM) / input.ts / points.ts
+  schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
   shared/    両ページ共通: dom.ts(el, card) / entryLink.ts / parse.ts(ParseResult) / style.css
 ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
@@ -39,7 +43,9 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 - テストは対象ファイルの隣に `*.test.ts` として置く（例: `src/points/points.test.ts`）
 - 各機能は `main.ts` だけが DOM を触り、計算・パースは純粋関数に分けてテストする
 - 機能フォルダ同士は import しない。共通のものは `shared/` に置く
-- ページを追加するときは HTML を `src/` 直下に置き、`vite.config.ts` の input と各ページの `.site-nav` に追加する。ビルド後は `dist/` 直下に出るので公開URLは `/<名前>.html`
+- ページを追加するときは `src/<名前>/index.html` を作り、`vite.config.ts` の input、各ページの `.site-nav`、メインページ（`src/index.html`）のカードに追加する。公開URLは `/<名前>/`
+- `base` は `/`。ページ間のリンクは `/finals/` のような絶対パスで書く。各ページの見出し上の「← 鬼火CS トップ」でメインに戻る
+- メインページの紹介文は仮の文面（HTML に直接記述）
 
 ## 規約
 

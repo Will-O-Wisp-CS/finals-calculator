@@ -4,17 +4,18 @@ import { defineConfig } from 'vite';
 const src = (path: string) => fileURLToPath(new URL(`./src/${path}`, import.meta.url));
 
 export default defineConfig({
-  // HTML・ソース・テストはすべて src/ に置く（公開URLは dist/ 直下の index.html, points.html, schedule.html）
+  // HTML・ソース・テストはすべて src/ に置く。メインは src/index.html、各ページは src/<名前>/index.html（公開URLは /<名前>/）
   root: src(''),
-  base: './',
+  base: '/',
   build: {
     outDir: fileURLToPath(new URL('./dist', import.meta.url)),
     emptyOutDir: true,
     rolldownOptions: {
       input: {
-        main: src('index.html'),
-        points: src('points.html'),
-        schedule: src('schedule.html'),
+        home: src('index.html'),
+        finals: src('finals/index.html'),
+        points: src('points/index.html'),
+        schedule: src('schedule/index.html'),
       },
     },
   },

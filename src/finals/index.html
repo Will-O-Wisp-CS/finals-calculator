@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfbfd" />
+    <title>【鬼火CS】決勝トーナメント進出人数計算ツール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+    <header class="site-header">
+      <p>
+        鬼火CS参加表明は<a
+          id="entry-link"
+          href="https://www.dmp-ranking.com/schedule.asp?Search=Search&amp;Meisho=%8B%53%89%CE"
+          target="_blank"
+          rel="noopener noreferrer"
+          >コチラ</a
+        >
+      </p>
+      <p class="site-header-sub">参加表明で抽選会のチャンス！</p>
+    </header>
+    <main>
+      <nav class="site-nav" aria-label="ツール切り替え">
+        <a href="/finals/" aria-current="page">進出人数計算</a>
+        <a href="/points/">ポイント計算</a>
+        <a href="/schedule/">大会スケジュール</a>
+      </nav>
+
+      <header class="hero">
+        <a class="eyebrow" href="/">← 鬼火CS トップ</a>
+        <h1><span class="sr-only">【鬼火CS】</span>決勝トーナメント<br />進出人数計算ツール</h1>
+      </header>
+
+      <section class="card rules" aria-labelledby="rules-title">
+        <h2 id="rules-title" class="card-title">決勝トーナメント進出のルール</h2>
+        <h3 class="rules-heading">予選の回数</h3>
+        <p class="rules-text">
+          5回戦終了時点で「全勝＋1敗」が<strong>16人以下なら5回戦</strong>で終了、<strong>17人以上なら6回戦</strong>まで行う
+        </p>
+        <h3 class="rules-heading">決勝トーナメント</h3>
+        <ol class="rules-list">
+          <li><span class="num">1</span><span>予選で全勝・1敗のプレイヤーは<strong>必ず進出</strong></span></li>
+          <li><span class="num">2</span><span>1の人数が8人以下なら<strong>8人枠</strong>（3回戦）、9人以上なら<strong>16人枠</strong>（4回戦）</span></li>
+          <li><span class="num">3</span><span>全勝者は1回戦<strong>Bye</strong>（その人数分、進出人数が減る）。16人枠で全勝者が1人のときは予選2位もByeになり<strong>14人進出</strong></span></li>
+          <li>
+            <span class="num">4</span>
+            <span>ただし「1敗の人数＋全勝者の人数×2」が枠を超える場合は<strong>Byeなし</strong>で枠の人数が進出し、決勝では予選の勝利数が多い方が先攻</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="card calc" aria-labelledby="calc-title">
+        <h2 id="calc-title" class="card-title">計算する</h2>
+        <form id="form" novalidate>
+          <label for="players">参加人数<span class="hint">25〜128人</span></label>
+          <div class="input-row">
+            <input id="players" type="text" inputmode="numeric" autocomplete="off" placeholder="例: 64" />
+            <button type="submit">計算</button>
+          </div>
+          <p id="error" class="error" role="alert"></p>
+        </form>
+        <p class="note">予選の回数と決勝トーナメント進出人数の確率を計算します。</p>
+        <ul class="premise" aria-label="前提条件">
+          <li>全試合の勝率は50%</li>
+          <li>両者敗北は発生しない</li>
+        </ul>
+      </section>
+
+      <div id="results" aria-live="polite"></div>
+
+      <footer class="footer">鬼火CS</footer>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
