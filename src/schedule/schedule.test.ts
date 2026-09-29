@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ScheduleEvent } from './parse';
-import { entryStatus, groupByMonth, receptionWindow, sameEvents, searchFromDate } from './schedule';
+import { activeMonths, entryStatus, groupByMonth, receptionWindow, sameEvents, searchFromDate } from './schedule';
 
 function event(date: string, start: string, venue = '晴れる屋3'): ScheduleEvent {
   return {
@@ -104,5 +104,25 @@ describe('entryStatus', () => {
   it('月をまたいで14日前を数える', () => {
     const status = entryStatus(event('2026-11-03', '10:30'), jst('2026-10-01T00:00:00'));
     expect(status.kind === 'upcoming' && status.opensAt.toISOString()).toBe('2026-10-20T11:00:00.000Z');
+  });
+});
+
+describe('activeMonths', () => {
+  const jst = (text: string) => new Date(`${text}+09:00`);
+  const groups = () =>
+    groupByMonth([event('2026-09-27', '10:30'), event('2026-09-27', '16:50'), event('2026-10-04', '10:30')]);
+
+  it('月の大会がすべて開催済みになったら、その月を除く', () => {
+    expect(activeMonths(groups(), jst('2026-09-27T16:50:00')).map((g) => g.month)).toEqual([10]);
+  });
+
+  it('1つでも開始前の大会が残っている月は、開催済みの大会ごと残す', () => {
+    const [sep] = activeMonths(groups(), jst('2026-09-27T16:49:59'));
+    expect(sep.month).toBe(9);
+    expect(sep.events).toHaveLength(2);
+  });
+
+  it('すべて開催済みなら空配列', () => {
+    expect(activeMonths(groups(), jst('2026-10-05T00:00:00'))).toEqual([]);
   });
 });

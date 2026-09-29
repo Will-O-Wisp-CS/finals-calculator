@@ -53,6 +53,11 @@ export function entryStatus(event: ScheduleEvent, now: Date): EntryStatus {
   return { kind: 'finished' };
 }
 
+/** 大会がすべて開催済みになった月を除く（開始前の大会が残る月は開催済みの大会ごと残す） */
+export function activeMonths(groups: MonthGroup[], now: Date): MonthGroup[] {
+  return groups.filter((g) => g.events.some((e) => entryStatus(e, now).kind !== 'finished'));
+}
+
 export function sameEvents(a: ScheduleEvent[], b: ScheduleEvent[]): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
 }

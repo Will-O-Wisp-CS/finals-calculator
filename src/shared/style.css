@@ -8,7 +8,8 @@
   --muted: #625b70;
   --faint: #9a93a8;
   --purple: #7c3aed;
-  --blue: #2563eb;
+  --saturday-marker: #bfdbfe;
+  --sunday-marker: #fecaca;
   --holiday-marker: #fde047;
   --red: #dc2626;
   --orange: #ea580c;
@@ -699,19 +700,25 @@ button:focus-visible {
   text-decoration: none;
 }
 
-.schedule-date a.day-saturday {
-  color: var(--blue);
-}
-
-.schedule-date a.day-sunday {
-  color: var(--red);
-}
-
-/* 祝日は黄色のマーカー（黄色の文字は白背景で読めないため） */
+/* 開催日は黒文字＋曜日のマーカー（土＝青 / 日＝赤 / 祝日＝黄、平日はマーカーなし） */
+.schedule-date a.day-saturday,
+.schedule-date a.day-sunday,
 .schedule-date a.day-holiday {
   padding: 0 3px;
   border-radius: 3px;
-  background: linear-gradient(transparent 35%, var(--holiday-marker) 35%);
+  background: linear-gradient(transparent 35%, var(--marker) 35%);
+}
+
+.schedule-date a.day-saturday {
+  --marker: var(--saturday-marker);
+}
+
+.schedule-date a.day-sunday {
+  --marker: var(--sunday-marker);
+}
+
+.schedule-date a.day-holiday {
+  --marker: var(--holiday-marker);
 }
 
 .schedule-date a:hover {

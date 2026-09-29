@@ -4,7 +4,7 @@ import { buildEntryUrl } from '../shared/entryLink';
 import data from './events.json';
 import { dayKind } from './calendar';
 import type { ScheduleEvent } from './parse';
-import { entryStatus, groupByMonth, receptionWindow, type EntryStatus, type MonthGroup } from './schedule';
+import { activeMonths, entryStatus, groupByMonth, receptionWindow, type EntryStatus, type MonthGroup } from './schedule';
 
 const schedule = document.querySelector<HTMLDivElement>('#schedule')!;
 const updatedAt = document.querySelector<HTMLParagraphElement>('#updated-at')!;
@@ -23,7 +23,7 @@ const COLUMNS = ['開催日', '開催地', 'フォーマット', '参加形式',
 updatedAt.textContent = `最終更新 ${formatUpdatedAt(data.updatedAt)}`;
 
 const now = new Date();
-const groups = groupByMonth(data.events);
+const groups = activeMonths(groupByMonth(data.events), now);
 schedule.replaceChildren(
   ...(groups.length > 0
     ? groups.map(monthCard)
