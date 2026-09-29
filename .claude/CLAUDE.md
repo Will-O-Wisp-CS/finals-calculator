@@ -4,7 +4,7 @@
 
 公開URLは https://will-o-wisp-cs.github.io/ （リポジトリ名 `will-o-wisp-cs.github.io` のユーザーサイト）。
 
-- `/` — メインページ（紹介文と各ページへのカード）
+- `/` — メインページ（公式Xのプロフィールと各ページへのカード）
 - `/finals/` — 決勝トーナメント進出人数計算（スイスドロー予選の確率計算）
 - `/points/` — DMPランキングポイント計算（順位・参加人数・ジャッジ有無から獲得pt）
 - `/schedule/` — 鬼火CS 大会スケジュール（dmp-ranking.com の大会日程から毎日自動取得）
@@ -31,7 +31,7 @@ npm run fetch-schedule   # dmp-ranking.com から src/schedule/events.json を�
 docs/superpowers/specs, plans   設計書と実装計画
 src/         Vite の root。HTML・ソース・テストはすべてここ
   index.html メインページ。各ページの HTML は機能フォルダの index.html（すべて vite.config.ts の rolldownOptions.input に登録）
-  home/      メインページ: main.ts(参加表明リンクの更新のみ)
+  home/      メインページ: main.ts(メニューと参加表明リンク) / icon.jpg(公式Xのアイコン)
   finals/    進出人数計算: index.html / main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: index.html / main.ts(DOM) / input.ts / points.ts
   schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
@@ -46,8 +46,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 - ページを追加するときは `src/<名前>/index.html` を作り、`vite.config.ts` の input、`src/shared/menu.ts` の `SITE_PAGES`、メインページ（`src/index.html`）のカードに追加する。公開URLは `/<名前>/`
 - ページ間の移動は上部の帯の右端のハンバーガーメニュー（`mountSiteMenu(ページID)` を各 `main.ts` で呼ぶ）
 - `base` は `/`。ページ間のリンクは `/finals/` のような絶対パスで書く。各ページの見出し上の「← 鬼火CS トップ」でメインに戻る
-- メインページの紹介文は仮の文面（HTML に直接記述）
-- メインページの「公式X」欄は X公式の埋め込みタイムライン（widgets.js）。ログインしていない閲覧者には新しい順にならず、429で表示されないこともある（承知の上で採用）。確実に最新を出すなら X API（従量課金）で取得する案がある
+- メインページの見出し下は公式Xのプロフィール（`src/home/icon.jpg` のアイコン、@will_o_wisp_cs へのリンク、フォローボタン）。X の埋め込みタイムラインはログインしていない閲覧者に表示されないため使わない
 
 ## 規約
 

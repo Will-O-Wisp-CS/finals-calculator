@@ -151,9 +151,56 @@ a.eyebrow:focus-visible {
   outline-offset: 2px;
 }
 
-.hero-lead {
-  margin: 12px 0 0;
-  color: var(--muted);
+/* アイコンの右に ID とフォローボタンを縦に並べる */
+.profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  margin-top: 16px;
+}
+
+.profile-icon {
+  grid-row: span 2;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(28, 24, 38, 0.18);
+}
+
+.profile-handle {
+  align-self: end;
+  justify-self: start;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.profile-follow {
+  align-self: start;
+  justify-self: start;
+  padding: 4px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--on-accent);
+  background: var(--fg);
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+.profile-follow:hover {
+  transform: translateY(-1px);
+}
+
+.profile-handle:focus-visible,
+.profile-follow:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
 }
 
 h1 {
@@ -1014,58 +1061,6 @@ button:focus-visible {
   margin-top: 4px;
   padding-left: 14px;
   font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* ---------- X ---------- */
-
-.x-feed {
-  margin-top: 24px;
-}
-
-.x-profile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--fg);
-  text-decoration: none;
-  background: var(--surface-sub);
-}
-
-.x-profile:hover {
-  border-color: var(--border-strong);
-}
-
-.x-profile:focus-visible {
-  outline: 2px solid var(--purple);
-  outline-offset: 2px;
-}
-
-.x-handle {
-  font-weight: 700;
-}
-
-.x-follow {
-  flex: none;
-  padding: 4px 14px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--on-accent);
-  background: var(--fg);
-}
-
-.x-timeline {
-  margin-top: 12px;
-}
-
-/* 埋め込みが読み込めなかったときのリンク */
-.x-timeline > .twitter-timeline {
-  font-size: 0.9rem;
   color: var(--muted);
 }
 

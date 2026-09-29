@@ -29,8 +29,17 @@
     <main>
       <header class="hero">
         <h1>鬼火CS</h1>
-        <!-- 紹介文（仮の文面。確定したら差し替える） -->
-        <p class="hero-lead">鬼火CSは、関東各地のカードショップで開催しているデュエル・マスターズの公認CSです。</p>
+        <div class="profile">
+          <img class="profile-icon" src="./home/icon.jpg" alt="" width="72" height="72" />
+          <a class="profile-handle" href="https://x.com/will_o_wisp_cs" target="_blank" rel="noopener noreferrer">@will_o_wisp_cs</a>
+          <a
+            class="profile-follow"
+            href="https://x.com/intent/follow?screen_name=will_o_wisp_cs"
+            target="_blank"
+            rel="noopener noreferrer"
+            >フォローする</a
+          >
+        </div>
       </header>
 
       <nav class="hub" aria-label="ページ一覧">
@@ -48,29 +57,9 @@
         </a>
       </nav>
 
-      <section class="card x-feed" aria-labelledby="x-title">
-        <h2 id="x-title" class="card-title">公式X</h2>
-        <a class="x-profile" href="https://x.com/will_o_wisp_cs" target="_blank" rel="noopener noreferrer">
-          <span class="x-handle">@will_o_wisp_cs</span>
-          <span class="x-follow">フォローする</span>
-        </a>
-        <!-- X公式の埋め込みタイムライン。読み込めないときはリンクのまま表示される -->
-        <div class="x-timeline">
-          <a
-            class="twitter-timeline"
-            data-lang="ja"
-            data-height="560"
-            data-chrome="noheader nofooter transparent"
-            data-dnt="true"
-            href="https://twitter.com/will_o_wisp_cs"
-            >@will_o_wisp_cs のポストを見る</a
-          >
-        </div>
-      </section>
 
       <footer class="footer">鬼火CS</footer>
     </main>
     <script type="module" src="./home/main.ts"></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
 </html>
