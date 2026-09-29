@@ -48,8 +48,29 @@
         </a>
       </nav>
 
+      <section class="card x-feed" aria-labelledby="x-title">
+        <h2 id="x-title" class="card-title">公式X</h2>
+        <a class="x-profile" href="https://x.com/will_o_wisp_cs" target="_blank" rel="noopener noreferrer">
+          <span class="x-handle">@will_o_wisp_cs</span>
+          <span class="x-follow">フォローする</span>
+        </a>
+        <!-- X公式の埋め込みタイムライン。読み込めないときはリンクのまま表示される -->
+        <div class="x-timeline">
+          <a
+            class="twitter-timeline"
+            data-lang="ja"
+            data-height="560"
+            data-chrome="noheader nofooter transparent"
+            data-dnt="true"
+            href="https://twitter.com/will_o_wisp_cs"
+            >@will_o_wisp_cs のポストを見る</a
+          >
+        </div>
+      </section>
+
       <footer class="footer">鬼火CS</footer>
     </main>
     <script type="module" src="./home/main.ts"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
 </html>

@@ -1017,6 +1017,58 @@ button:focus-visible {
   color: var(--muted);
 }
 
+/* ---------- X ---------- */
+
+.x-feed {
+  margin-top: 24px;
+}
+
+.x-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--fg);
+  text-decoration: none;
+  background: var(--surface-sub);
+}
+
+.x-profile:hover {
+  border-color: var(--border-strong);
+}
+
+.x-profile:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.x-handle {
+  font-weight: 700;
+}
+
+.x-follow {
+  flex: none;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--on-accent);
+  background: var(--fg);
+}
+
+.x-timeline {
+  margin-top: 12px;
+}
+
+/* 埋め込みが読み込めなかったときのリンク */
+.x-timeline > .twitter-timeline {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
 .footer {
   margin-top: 40px;
   text-align: center;
