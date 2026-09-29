@@ -1056,6 +1056,18 @@ button:focus-visible {
   color: var(--faint);
 }
 
+.hub-card-external .hub-title::after {
+  content: "↗";
+}
+
+.hub-heading {
+  margin: 32px 0 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
 .hub-desc {
   display: block;
   margin-top: 4px;
