@@ -544,6 +544,17 @@ button:focus-visible {
   outline-offset: -2px;
 }
 
+.site-header .menu-link-external::after {
+  content: " ↗";
+  color: var(--faint);
+}
+
+.menu-divider {
+  margin: 6px 8px;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
 /* ---------- Points form ---------- */
 
 .field input {

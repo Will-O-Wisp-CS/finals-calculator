@@ -10,6 +10,12 @@ export const SITE_PAGES: { id: PageId; href: string; label: string }[] = [
   { id: 'points', href: '/points/', label: 'ランキングポイント計算' },
 ];
 
+/** サイト外のリンク（ページ一覧の下に区切って並べ、新しいタブで開く） */
+export const EXTERNAL_LINKS: { href: string; label: string }[] = [
+  { href: 'https://nojigikucs.com/users-manage?admin=onibics', label: 'マッチングサイト（メイン）' },
+  { href: 'https://nojigikucs.com/users-manage?admin=onibics-sub', label: 'マッチングサイト（サブ）' },
+];
+
 /** 上部の帯（.site-header）の右端にハンバーガーボタンとページメニューを付ける */
 export function mountSiteMenu(current: PageId): void {
   const header = document.querySelector<HTMLElement>('.site-header')!;
@@ -29,6 +35,14 @@ export function mountSiteMenu(current: PageId): void {
     const link = el('a', page.label, 'menu-link') as HTMLAnchorElement;
     link.href = page.href;
     if (page.id === current) link.setAttribute('aria-current', 'page');
+    panel.append(link);
+  }
+  panel.append(el('hr', '', 'menu-divider'));
+  for (const external of EXTERNAL_LINKS) {
+    const link = el('a', external.label, 'menu-link menu-link-external') as HTMLAnchorElement;
+    link.href = external.href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     panel.append(link);
   }
 
