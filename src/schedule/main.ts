@@ -48,13 +48,9 @@ function monthCard(group: MonthGroup): HTMLElement {
 function eventRow(e: ScheduleEvent, status: EntryStatus): HTMLElement {
   const row = el('tr', '', status.kind === 'finished' ? 'is-finished' : '');
   const date = el('td', '', 'schedule-date');
-  const link = el('a', formatDate(e.date), `day-${dayKind(e.date)}`) as HTMLAnchorElement;
-  link.href = e.url;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  date.append(link);
+  date.append(detailLink(formatDate(e.date), e.url, `day-${dayKind(e.date)}`));
   const venue = el('td', '', 'schedule-venue');
-  venue.append(el('span', e.venue, 'schedule-venue-name'), entryBadge(status));
+  venue.append(detailLink(e.venue, e.url, 'schedule-venue-name'), entryBadge(status));
   row.append(
     date,
     venue,
@@ -64,6 +60,15 @@ function eventRow(e: ScheduleEvent, status: EntryStatus): HTMLElement {
     el('td', receptionWindow(e.start), 'schedule-num schedule-reception'),
   );
   return row;
+}
+
+/** 大会詳細ページ（dmp-ranking.com）を別タブで開くリンク */
+function detailLink(text: string, url: string, className: string): HTMLElement {
+  const link = el('a', text, className) as HTMLAnchorElement;
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  return link;
 }
 
 function entryBadge(status: EntryStatus): HTMLElement {

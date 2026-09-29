@@ -692,12 +692,26 @@ button:focus-visible {
   border-bottom: none;
 }
 
+.schedule-table a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.schedule-table a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.schedule-table a:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
 .schedule-date a {
   font-family: var(--font-num);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--fg);
-  text-decoration: none;
 }
 
 /* 開催日は黒文字＋曜日のマーカー（土＝青 / 日＝赤 / 祝日＝黄、平日はマーカーなし） */
@@ -721,21 +735,13 @@ button:focus-visible {
   --marker: var(--holiday-marker);
 }
 
-.schedule-date a:hover {
-  text-decoration: underline;
-}
-
-.schedule-date a:focus-visible {
-  outline: 2px solid var(--purple);
-  outline-offset: 2px;
-}
-
 .schedule-venue {
   white-space: normal;
 }
 
 .schedule-venue-name {
   display: block;
+  width: fit-content;
   font-weight: 700;
 }
 
