@@ -1,6 +1,7 @@
 import '../shared/style.css';
 import { card, el } from '../shared/dom';
 import { buildEntryUrl } from '../shared/entryLink';
+import { mountSiteMenu } from '../shared/menu';
 import data from './events.json';
 import { dayKind } from './calendar';
 import type { ScheduleEvent } from './parse';
@@ -9,6 +10,8 @@ import { activeMonths, entryStatus, groupByMonth, receptionWindow, type EntrySta
 const schedule = document.querySelector<HTMLDivElement>('#schedule')!;
 const updatedAt = document.querySelector<HTMLParagraphElement>('#updated-at')!;
 const entryLink = document.querySelector<HTMLAnchorElement>('#entry-link')!;
+
+mountSiteMenu('schedule');
 
 // 開いた日以降の大会だけが表示されるよう、クリック時点の日付を入れる
 const updateEntryLink = () => {

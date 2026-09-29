@@ -1,6 +1,7 @@
 import '../shared/style.css';
 import { card, el } from '../shared/dom';
 import { buildEntryUrl } from '../shared/entryLink';
+import { mountSiteMenu } from '../shared/menu';
 import { calculatePoints, MIN_ELIGIBLE_PLAYERS, type PointsResult } from './points';
 import { parsePointsForm } from './input';
 
@@ -11,6 +12,8 @@ const rankError = document.querySelector<HTMLParagraphElement>('#rank-error')!;
 const playersError = document.querySelector<HTMLParagraphElement>('#players-error')!;
 const results = document.querySelector<HTMLDivElement>('#results')!;
 const entryLink = document.querySelector<HTMLAnchorElement>('#entry-link')!;
+
+mountSiteMenu('points');
 
 // 開いた日以降の大会だけが表示されるよう、クリック時点の日付を入れる
 const updateEntryLink = () => {

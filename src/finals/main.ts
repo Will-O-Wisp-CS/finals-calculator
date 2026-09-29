@@ -1,6 +1,7 @@
 import '../shared/style.css';
 import { card, el } from '../shared/dom';
 import { buildEntryUrl } from '../shared/entryLink';
+import { mountSiteMenu } from '../shared/menu';
 import { formatPercent } from './format';
 import { parsePlayers } from './input';
 import { calculate, type FinalsRow, type TournamentResult } from './tournament';
@@ -10,6 +11,8 @@ const input = document.querySelector<HTMLInputElement>('#players')!;
 const error = document.querySelector<HTMLParagraphElement>('#error')!;
 const results = document.querySelector<HTMLDivElement>('#results')!;
 const entryLink = document.querySelector<HTMLAnchorElement>('#entry-link')!;
+
+mountSiteMenu('finals');
 
 // 開いた日以降の大会だけが表示されるよう、クリック時点の日付を入れる
 const updateEntryLink = () => {

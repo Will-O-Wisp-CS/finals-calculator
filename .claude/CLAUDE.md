@@ -35,7 +35,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
   finals/    進出人数計算: index.html / main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: index.html / main.ts(DOM) / input.ts / points.ts
   schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
-  shared/    両ページ共通: dom.ts(el, card) / entryLink.ts / parse.ts(ParseResult) / style.css
+  shared/    全ページ共通: dom.ts(el, card) / menu.ts(ハンバーガーメニュー) / entryLink.ts / parse.ts(ParseResult) / style.css
 ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
 
@@ -43,7 +43,8 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 - テストは対象ファイルの隣に `*.test.ts` として置く（例: `src/points/points.test.ts`）
 - 各機能は `main.ts` だけが DOM を触り、計算・パースは純粋関数に分けてテストする
 - 機能フォルダ同士は import しない。共通のものは `shared/` に置く
-- ページを追加するときは `src/<名前>/index.html` を作り、`vite.config.ts` の input、各ページの `.site-nav`、メインページ（`src/index.html`）のカードに追加する。公開URLは `/<名前>/`
+- ページを追加するときは `src/<名前>/index.html` を作り、`vite.config.ts` の input、`src/shared/menu.ts` の `SITE_PAGES`、メインページ（`src/index.html`）のカードに追加する。公開URLは `/<名前>/`
+- ページ間の移動は上部の帯の右端のハンバーガーメニュー（`mountSiteMenu(ページID)` を各 `main.ts` で呼ぶ）
 - `base` は `/`。ページ間のリンクは `/finals/` のような絶対パスで書く。各ページの見出し上の「← 鬼火CS トップ」でメインに戻る
 - メインページの紹介文は仮の文面（HTML に直接記述）
 
