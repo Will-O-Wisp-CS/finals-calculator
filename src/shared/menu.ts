@@ -39,7 +39,7 @@ export function mountSiteMenu(current: PageId): void {
   }
   panel.append(el('hr', '', 'menu-divider'));
   for (const external of EXTERNAL_LINKS) {
-    const link = el('a', external.label, 'menu-link menu-link-external') as HTMLAnchorElement;
+    const link = el('a', external.label, 'menu-link') as HTMLAnchorElement;
     link.href = external.href;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
