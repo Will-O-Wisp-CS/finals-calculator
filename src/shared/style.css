@@ -8,6 +8,8 @@
   --muted: #625b70;
   --faint: #9a93a8;
   --purple: #7c3aed;
+  --blue: #2563eb;
+  --holiday-marker: #fde047;
   --red: #dc2626;
   --orange: #ea580c;
   --accent: linear-gradient(120deg, var(--purple), var(--red) 55%, var(--orange));
@@ -652,8 +654,10 @@ button:focus-visible {
 
 /* ---------- Schedule ---------- */
 
-.schedule-premise {
+.schedule-updated {
   margin: 0 0 16px;
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 
 .schedule-scroll {
@@ -691,8 +695,23 @@ button:focus-visible {
   font-family: var(--font-num);
   font-weight: 700;
   font-size: 1rem;
-  color: var(--purple);
+  color: var(--fg);
   text-decoration: none;
+}
+
+.schedule-date a.day-saturday {
+  color: var(--blue);
+}
+
+.schedule-date a.day-sunday {
+  color: var(--red);
+}
+
+/* 祝日は黄色のマーカー（黄色の文字は白背景で読めないため） */
+.schedule-date a.day-holiday {
+  padding: 0 3px;
+  border-radius: 3px;
+  background: linear-gradient(transparent 35%, var(--holiday-marker) 35%);
 }
 
 .schedule-date a:hover {
@@ -705,8 +724,36 @@ button:focus-visible {
 }
 
 .schedule-venue {
-  font-weight: 700;
   white-space: normal;
+}
+
+.schedule-venue-name {
+  display: block;
+  font-weight: 700;
+}
+
+.entry-badge {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.entry-open {
+  padding: 2px 10px;
+  border-radius: 999px;
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+.entry-upcoming,
+.entry-finished {
+  color: var(--muted);
+}
+
+.schedule-table tr.is-finished td {
+  opacity: 0.45;
 }
 
 .schedule-num {

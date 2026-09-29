@@ -22,9 +22,20 @@ dmp-ranking は随時更新されるため、**毎日 0:00 JST に取得し、�
 - **フォーマット・参加形式・定員**: 表示どおり
 - **受付時刻**: 開始の20分前〜開始（例: 開始 10:30 → `10:10〜10:30`）
 
+## 表示（2026-09-29 追加）
+- **開催日の色**: 土曜＝青、日曜＝赤、祝日＝黄色のマーカー背景（文字は黒）、平日＝黒。祝日は曜日より優先する
+  - 黄色の文字は白背景では読めないため、マーカーにする
+  - 祝日は `calendar.ts` で祝日法の現行ルールから計算する（春分・秋分は近似式、振替休日・国民の休日を含む）
+- **参加表明**: 開催日14日前の 20:00 JST から大会開始時刻までを「参加表明受付中」として表示する
+  - 受付前は「参加表明 9/20(日) 20:00〜」と表示する
+  - 開始時刻を過ぎた大会は「開催済み」とし、行を薄く表示する
+  - 判定はページを開いた時点の時刻で、ブラウザ側で行う
+- 前提条件の表示はしない。「最終更新」だけを表示する
+
 ## 構成
 - `src/schedule/parse.ts` — `parseSchedule(html)`：HTML → `ScheduleEvent[]`。`<table id="main"` が無ければ例外を投げる
-- `src/schedule/schedule.ts` — `receptionWindow` / `groupByMonth` / `searchFromDate`（JST当月1日）/ `sameEvents`
+- `src/schedule/schedule.ts` — `receptionWindow` / `groupByMonth` / `searchFromDate`（JST当月1日）/ `sameEvents` / `entryStatus`（参加表明の状況）
+- `src/schedule/calendar.ts` — `holidayName` / `dayKind`（祝日・曜日の判定）
 - `src/schedule/fetch.ts` — Node 専用の取得スクリプト（`npm run fetch-schedule`）
   - Shift_JIS を `TextDecoder` で変換してパースする
   - 既存の `events.json` と比べて、変わっていたときだけ `{ updatedAt, events }` を書き出す

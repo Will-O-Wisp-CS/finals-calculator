@@ -30,7 +30,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
   index.html, points.html   各ページ（vite.config.ts の rolldownOptions.input に登録）
   finals/    進出人数計算: main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: main.ts(DOM) / input.ts / points.ts
-  schedule/  大会スケジュール: main.ts(DOM) / parse.ts / schedule.ts / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
+  schedule/  大会スケジュール: main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
   shared/    両ページ共通: dom.ts(el, card) / entryLink.ts / parse.ts(ParseResult) / style.css
 ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
@@ -63,5 +63,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 ### 大会スケジュール（詳細は docs/superpowers/specs/2026-09-29-cs-schedule-design.md）
 - 取得元は `schedule.asp` を大会名「鬼火」、開始日＝JSTの当月1日で検索した結果（Shift_JIS）
 - 承認「◎」以外は載せない。開催地は大会名「鬼火CS in ○○」の ○○。受付は開始の20分前〜開始
+- 開催日は 土＝青 / 日＝赤 / 祝日＝黄色マーカー / 平日＝黒（祝日優先）。祝日は外部データを使わず `calendar.ts` で計算する
+- 参加表明は開催日14日前の20:00 JST〜大会開始時刻。ページを開いた時点で判定する
 - `fetch.ts` は Node で型を取り除いて直接実行するため、`fetch.ts` から import されるファイル内の import は `.ts` 拡張子付きで書く
 - `events.json` は bot が更新する。手で編集しない

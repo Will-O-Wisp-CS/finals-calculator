@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ScheduleEvent } from './parse';
-import { groupByMonth, receptionWindow, sameEvents, searchFromDate } from './schedule';
+import { entryStatus, groupByMonth, receptionWindow, sameEvents, searchFromDate } from './schedule';
 
 function event(date: string, start: string, venue = '晴れる屋3'): ScheduleEvent {
   return {
@@ -78,5 +78,31 @@ describe('sameEvents', () => {
 
   it('件数が違えば false', () => {
     expect(sameEvents([event('2026-10-04', '10:30')], [])).toBe(false);
+  });
+});
+
+describe('entryStatus', () => {
+  // 2026-10-04(日) 17:10 開始 → 参加表明は 9/20(日) 20:00 JST から
+  const e = event('2026-10-04', '17:10');
+  const jst = (text: string) => new Date(`${text}+09:00`);
+
+  it('14日前の20時より前は受付前（開始日時を返す）', () => {
+    const status = entryStatus(e, jst('2026-09-20T19:59:59'));
+    expect(status.kind).toBe('upcoming');
+    expect(status.kind === 'upcoming' && status.opensAt.toISOString()).toBe('2026-09-20T11:00:00.000Z');
+  });
+
+  it('14日前の20時から大会開始時刻までは受付中', () => {
+    expect(entryStatus(e, jst('2026-09-20T20:00:00')).kind).toBe('open');
+    expect(entryStatus(e, jst('2026-10-04T17:09:59')).kind).toBe('open');
+  });
+
+  it('大会開始時刻を過ぎたら開催済み', () => {
+    expect(entryStatus(e, jst('2026-10-04T17:10:00')).kind).toBe('finished');
+  });
+
+  it('月をまたいで14日前を数える', () => {
+    const status = entryStatus(event('2026-11-03', '10:30'), jst('2026-10-01T00:00:00'));
+    expect(status.kind === 'upcoming' && status.opensAt.toISOString()).toBe('2026-10-20T11:00:00.000Z');
   });
 });
