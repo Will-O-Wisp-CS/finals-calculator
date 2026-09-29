@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ENTRY_SEARCH_URL, buildEntryUrl } from './entryLink';
+import { ENTRY_SEARCH_URL, buildEntryUrl, entrySearchUrl } from './entryLink';
 
 describe('buildEntryUrl', () => {
   it('大会名「鬼火」(Shift_JIS) で検索し、開催日の開始を指定日にする', () => {
@@ -16,5 +16,11 @@ describe('buildEntryUrl', () => {
     expect(ENTRY_SEARCH_URL).toBe(
       'https://www.dmp-ranking.com/schedule.asp?Search=Search&Meisho=%8B%53%89%CE',
     );
+  });
+});
+
+describe('entrySearchUrl', () => {
+  it('YYYY/M/D の文字列をそのまま開催日の開始にする', () => {
+    expect(entrySearchUrl('2026/10/1')).toBe(`${ENTRY_SEARCH_URL}&EventFrom=2026%2F10%2F1`);
   });
 });

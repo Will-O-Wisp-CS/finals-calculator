@@ -7,6 +7,10 @@ export const ENTRY_SEARCH_URL =
 
 /** 指定日以降に開催される鬼火CSを検索した URL（日付はサイトの入力形式 YYYY/M/D） */
 export function buildEntryUrl(from: Date): string {
-  const date = `${from.getFullYear()}/${from.getMonth() + 1}/${from.getDate()}`;
-  return `${ENTRY_SEARCH_URL}&EventFrom=${encodeURIComponent(date)}`;
+  return entrySearchUrl(`${from.getFullYear()}/${from.getMonth() + 1}/${from.getDate()}`);
+}
+
+/** 開催日の開始を YYYY/M/D の文字列で指定した「鬼火」検索の URL */
+export function entrySearchUrl(dateText: string): string {
+  return `${ENTRY_SEARCH_URL}&EventFrom=${encodeURIComponent(dateText)}`;
 }

@@ -650,6 +650,148 @@ button:focus-visible {
   animation: grow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ---------- Schedule ---------- */
+
+.schedule-premise {
+  margin: 0 0 16px;
+}
+
+.schedule-scroll {
+  overflow-x: auto;
+  margin: 0 -4px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.schedule-table th {
+  padding: 0 6px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: left;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.schedule-table td {
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.schedule-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-date a {
+  font-family: var(--font-num);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--purple);
+  text-decoration: none;
+}
+
+.schedule-date a:hover {
+  text-decoration: underline;
+}
+
+.schedule-date a:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.schedule-venue {
+  font-weight: 700;
+  white-space: normal;
+}
+
+.schedule-num {
+  font-family: var(--font-num);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* スマホ幅では1大会を2行のカード状に並べる（1行目: 開催日・開催地、2行目: 形式・定員・受付） */
+@media (max-width: 600px) {
+  .schedule-table,
+  .schedule-table tbody {
+    display: block;
+    white-space: normal;
+  }
+
+  .schedule-table thead {
+    display: none;
+  }
+
+  .schedule-table tr {
+    display: grid;
+    grid-template-columns: auto auto auto 1fr;
+    grid-template-areas:
+      "date venue venue venue"
+      "format entry capacity reception";
+    align-items: baseline;
+    gap: 4px 10px;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .schedule-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .schedule-table td {
+    padding: 0;
+    border: none;
+  }
+
+  .schedule-date {
+    grid-area: date;
+  }
+
+  .schedule-venue {
+    grid-area: venue;
+  }
+
+  .schedule-format {
+    grid-area: format;
+  }
+
+  .schedule-entry {
+    grid-area: entry;
+  }
+
+  .schedule-capacity {
+    grid-area: capacity;
+  }
+
+  .schedule-reception {
+    grid-area: reception;
+  }
+
+  .schedule-format,
+  .schedule-entry {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .schedule-capacity,
+  .schedule-reception {
+    font-size: 0.9rem;
+  }
+
+  .schedule-reception::before {
+    content: "受付 ";
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+}
+
 .footer {
   margin-top: 40px;
   text-align: center;
@@ -678,6 +820,11 @@ button:focus-visible {
 
   .stat-value {
     font-size: 1.7rem;
+  }
+
+  .site-nav a {
+    padding: 6px 10px;
+    font-size: 0.8rem;
   }
 }
 

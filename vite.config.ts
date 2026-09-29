@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 const src = (path: string) => fileURLToPath(new URL(`./src/${path}`, import.meta.url));
 
 export default defineConfig({
-  // HTML・ソース・テストはすべて src/ に置く（公開URLは dist/ 直下の index.html, points.html）
+  // HTML・ソース・テストはすべて src/ に置く（公開URLは dist/ 直下の index.html, points.html, schedule.html）
   root: src(''),
   base: './',
   build: {
@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         main: src('index.html'),
         points: src('points.html'),
+        schedule: src('schedule.html'),
       },
     },
   },
