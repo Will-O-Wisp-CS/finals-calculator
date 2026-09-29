@@ -1,7 +1,7 @@
 export interface FinalsResult {
   /** 決勝トーナメント進出人数 */
   advance: number;
-  /** 1回戦Byeになる全勝者の人数 */
+  /** 1回戦Byeになる人数（全勝者。16人枠で全勝1人のときは予選2位を含む） */
   byes: number;
   /** 2敗のプレイヤーから進出する人数 */
   twoLoss: number;
@@ -19,7 +19,10 @@ export function decideFinals(undefeated: number, oneLoss: number): FinalsResult 
   const bracket = guaranteed <= 8 ? 8 : 16;
   // Byeの全勝者は自分と空いた対戦相手の2枠を使う
   const seedingRule = oneLoss + undefeated * 2 > bracket;
-  const byes = seedingRule ? 0 : undefeated;
+  let byes = seedingRule ? 0 : undefeated;
+  // 16人枠で全勝1人なら予選2位もByeにして14人進出にする。
+  // Bye 2人で4枠使うため、残り12枠に全勝・1敗の残りが収まる場合に限る（①優先）
+  if (bracket === 16 && byes === 1 && guaranteed - 2 <= 12) byes = 2;
   const advance = bracket - byes;
   // 全勝・1敗で埋まらない枠は2敗のプレイヤーから進出する
   return { advance, byes, twoLoss: advance - guaranteed, seedingRule };

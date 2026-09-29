@@ -14,6 +14,19 @@ describe('decideFinals', () => {
     expect(decideFinals(1, 15)).toEqual({ advance: 16, byes: 0, twoLoss: 0, seedingRule: true });
   });
 
+  it('16人枠で全勝1人: 予選2位もByeになり 14人進出（Bye 2人）', () => {
+    expect(decideFinals(1, 10)).toEqual({ advance: 14, byes: 2, twoLoss: 3, seedingRule: false });
+    expect(decideFinals(1, 13)).toEqual({ advance: 14, byes: 2, twoLoss: 0, seedingRule: false });
+  });
+
+  it('16人枠で全勝1人でも、予選2位のByeで全勝・1敗が収まらないなら15人進出のまま（①優先）', () => {
+    expect(decideFinals(1, 14)).toEqual({ advance: 15, byes: 1, twoLoss: 0, seedingRule: false });
+  });
+
+  it('8人枠で全勝1人は従来どおり 7人進出（Bye 1人）', () => {
+    expect(decideFinals(1, 5)).toEqual({ advance: 7, byes: 1, twoLoss: 1, seedingRule: false });
+  });
+
   it('全勝1・1敗7: 8人枠で9枠必要 → 8人・Byeなし', () => {
     expect(decideFinals(1, 7)).toEqual({ advance: 8, byes: 0, twoLoss: 0, seedingRule: true });
   });

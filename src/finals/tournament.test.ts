@@ -34,12 +34,28 @@ describe('calculate', () => {
     expect(r.prob6).toBeCloseTo(0.7890625, 12);
     expect(r.prob5).toBeCloseTo(1 - 0.7890625, 12);
     expect(r.finals.map((f) => [f.advance, f.byes, f.twoLossMin, f.twoLossMax, f.seedingRule])).toEqual([
-      [14, 2, 4, 5, false],
-      [15, 1, 4, 6, false],
+      [14, 2, 3, 5, false],
       [16, 0, 0, 0, true],
     ]);
-    const probs = [0.30078125, 0.48828125, 0.2109375];
+    const probs = [0.7890625, 0.2109375];
     r.finals.forEach((f, i) => expect(f.prob).toBeCloseTo(probs[i], 12));
+  });
+
+  it('41人: 16人枠で全勝1人のパターンは予選2位もByeになり14人進出', () => {
+    const r = calculate(41);
+    expect(r.finals.map((f) => [f.advance, f.byes, f.twoLossMin, f.twoLossMax, f.seedingRule])).toEqual([
+      [7, 1, 0, 0, false],
+      [8, 0, 0, 1, true],
+      [14, 2, 5, 5, false],
+    ]);
+    const probs = [0.078125, 0.7890625, 0.1328125];
+    r.finals.forEach((f, i) => expect(f.prob).toBeCloseTo(probs[i], 12));
+  });
+
+  it('どの人数でも15人進出にはならない', () => {
+    for (let players = MIN_PLAYERS; players <= MAX_PLAYERS; players++) {
+      expect(calculate(players).finals.some((f) => f.advance === 15)).toBe(false);
+    }
   });
 
   it('全人数で確率の整合性が取れ、対象外ケースは起きない', () => {
