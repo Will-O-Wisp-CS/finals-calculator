@@ -17,7 +17,7 @@ Vite 8（rolldown）+ TypeScript（strict）+ vitest。フレームワーク・�
 npm run dev     # 開発サーバー（.claude/launch.json の vite-dev は port 5173）
 npm test        # vitest
 npm run build   # tsc + vite build → dist/
-npm run fetch-schedule   # dmp-ranking.com から src/schedule/events.json を更新（Node 専用）
+npm run fetch-schedule   # dmp-ranking.com から src/shared/events.json を更新（Node 専用）
 npm run export-csv -- 2026-10 <出力先.csv>   # 指定月の大会を「開催日,開催地,定員,受付」の CSV に（Node 専用）
 ```
 
@@ -32,11 +32,11 @@ npm run export-csv -- 2026-10 <出力先.csv>   # 指定月の大会を「開催
 docs/superpowers/specs, plans   設計書と実装計画
 src/         Vite の root。HTML・ソース・テストはすべてここ
   index.html メインページ。各ページの HTML は機能フォルダの index.html（すべて vite.config.ts の rolldownOptions.input に登録）
-  home/      メインページ: main.ts(メニューと参加表明リンク) / icon.jpg(公式Xのアイコン)
+  home/      メインページ: main.ts(メニュー・参加表明リンク・マッチングサイトに割り当てる大会) / icon.jpg(公式Xのアイコン)
   finals/    進出人数計算: index.html / main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: index.html / main.ts(DOM) / input.ts / points.ts
-  schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果) / csv.ts + export-csv.ts(月別 CSV 出力)
-  shared/    全ページ共通: dom.ts(el, card) / menu.ts(ハンバーガーメニュー) / entryLink.ts / parse.ts(ParseResult) / style.css
+  schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / csv.ts + export-csv.ts(月別 CSV 出力)
+  shared/    全ページ共通: dom.ts(el, card) / menu.ts(ハンバーガーメニュー) / entryLink.ts / parse.ts(ParseResult) / events.ts(ScheduleEvent, 次の開催日) / events.json(大会スケジュールの取得結果) / style.css
 ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
 
@@ -47,6 +47,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 - ページを追加するときは `src/<名前>/index.html` を作り、`vite.config.ts` の input、`src/shared/menu.ts` の `SITE_PAGES`、メインページ（`src/index.html`）のカードに追加する。公開URLは `/<名前>/`
 - ページ間の移動は上部の帯の右端のハンバーガーメニュー（`mountSiteMenu(ページID)` を各 `main.ts` で呼ぶ）
 - `base` は `/`。ページ間のリンクは `/finals/` のような絶対パスで書く。各ページの見出し上の「← 鬼火CS トップ」でメインに戻る
+- メインページのマッチングサイト（メイン / サブ）のカードには、JST の今日以降で一番近い開催日の1開催目（開始時刻が早い方）をメイン、2開催目をサブとして開催地と大会詳細ページへのリンクを出す。2開催目がなければサブは「開催なし」
 - メインページの見出し下は公式Xのプロフィール（`src/home/icon.jpg` のアイコン、@will_o_wisp_cs へのリンク、フォローボタン）。X の埋め込みタイムラインはログインしていない閲覧者に表示されないため使わない
 
 ## 規約

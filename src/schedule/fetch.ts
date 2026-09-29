@@ -5,10 +5,11 @@
  */
 import { readFile, writeFile } from 'node:fs/promises';
 import { entrySearchUrl } from '../shared/entryLink.ts';
-import { parseSchedule, type ScheduleEvent } from './parse.ts';
+import type { ScheduleEvent } from '../shared/events.ts';
+import { parseSchedule } from './parse.ts';
 import { sameEvents, searchFromDate } from './schedule.ts';
 
-const OUTPUT = new URL('./events.json', import.meta.url);
+const OUTPUT = new URL('../shared/events.json', import.meta.url);
 
 type ScheduleData = { updatedAt: string; events: ScheduleEvent[] };
 

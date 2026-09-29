@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { eventsCsv, monthRange, parseMonth } from './csv';
-import type { ScheduleEvent } from './parse';
+import type { ScheduleEvent } from '../shared/events';
 
 function event(date: string, venue: string, capacity: number, start: string): ScheduleEvent {
   return { date, venue, format: 'オリジナル', entryType: '個人', capacity, start, url: 'https://example.com/' };

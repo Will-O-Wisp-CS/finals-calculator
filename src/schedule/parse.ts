@@ -1,17 +1,4 @@
-/** 大会スケジュールの1大会分（dmp-ranking.com の大会日程の1行） */
-export type ScheduleEvent = {
-  /** 開催日 'YYYY-MM-DD' */
-  date: string;
-  /** 開催地（大会名「鬼火CS in ○○」の ○○） */
-  venue: string;
-  format: string;
-  entryType: string;
-  capacity: number;
-  /** 開始時刻 'HH:MM' */
-  start: string;
-  /** 大会詳細ページ */
-  url: string;
-};
+import type { ScheduleEvent } from '../shared/events.ts';
 
 const SITE_ORIGIN = 'https://www.dmp-ranking.com/';
 const APPROVED = '◎';

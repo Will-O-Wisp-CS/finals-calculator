@@ -2,9 +2,9 @@ import '../shared/style.css';
 import { card, el } from '../shared/dom';
 import { buildEntryUrl } from '../shared/entryLink';
 import { mountSiteMenu } from '../shared/menu';
-import data from './events.json';
+import data from '../shared/events.json';
+import { formatEventDate, type ScheduleEvent } from '../shared/events';
 import { dayKind } from './calendar';
-import type { ScheduleEvent } from './parse';
 import { activeMonths, entryStatus, groupByMonth, receptionWindow, type EntryStatus, type MonthGroup } from './schedule';
 
 const schedule = document.querySelector<HTMLDivElement>('#schedule')!;
@@ -51,7 +51,7 @@ function monthCard(group: MonthGroup): HTMLElement {
 function eventRow(e: ScheduleEvent, status: EntryStatus): HTMLElement {
   const row = el('tr', '', status.kind === 'finished' ? 'is-finished' : '');
   const date = el('td', '', 'schedule-date');
-  date.append(detailLink(formatDate(e.date), e.url, `day-${dayKind(e.date)}`));
+  date.append(detailLink(formatEventDate(e.date), e.url, `day-${dayKind(e.date)}`));
   const venue = el('td', '', 'schedule-venue');
   venue.append(detailLink(e.venue, e.url, 'schedule-venue-name'), entryBadge(status));
   row.append(
@@ -91,13 +91,6 @@ function formatOpensAt(d: Date): string {
   const iso = jst.toISOString();
   const [, m, day] = iso.slice(0, 10).split('-').map(Number);
   return `${m}/${day}(${WEEKDAYS[jst.getUTCDay()]}) ${iso.slice(11, 16)}`;
-}
-
-/** '2026-10-04' → '10/04(日)' */
-function formatDate(iso: string): string {
-  const [y, m, d] = iso.split('-').map(Number);
-  const weekday = WEEKDAYS[new Date(y, m - 1, d).getDay()];
-  return `${iso.slice(5, 7)}/${iso.slice(8, 10)}(${weekday})`;
 }
 
 function formatUpdatedAt(iso: string): string {

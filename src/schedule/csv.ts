@@ -1,4 +1,4 @@
-import type { ScheduleEvent } from './parse.ts';
+import type { ScheduleEvent } from '../shared/events.ts';
 import { groupByMonth, receptionWindow } from './schedule.ts';
 
 /** 月指定のパース結果（形は shared/parse.ts の ParseResult に合わせる） */

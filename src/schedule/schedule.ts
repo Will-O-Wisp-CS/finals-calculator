@@ -1,4 +1,4 @@
-import type { ScheduleEvent } from './parse.ts';
+import type { ScheduleEvent } from '../shared/events.ts';
 
 /** 受付は開始の何分前からか */
 export const RECEPTION_MINUTES_BEFORE = 20;

@@ -1064,6 +1064,34 @@ button:focus-visible {
   color: var(--muted);
 }
 
+.hub-card-static:hover {
+  transform: none;
+  border-color: var(--border);
+}
+
+.hub-card-static .hub-title {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 4px;
+}
+
+.hub-card-static .hub-title:hover {
+  text-decoration-color: currentColor;
+}
+
+.hub-venue {
+  color: var(--purple);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.hub-card-static a:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .hub-desc {
   display: block;
   margin-top: 4px;

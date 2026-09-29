@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { ScheduleEvent } from './parse';
+import type { ScheduleEvent } from '../shared/events';
 import { activeMonths, entryStatus, groupByMonth, receptionWindow, sameEvents, searchFromDate } from './schedule';
 
 function event(date: string, start: string, venue = '晴れる屋3'): ScheduleEvent {
