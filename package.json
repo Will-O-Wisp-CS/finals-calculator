@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "fetch-schedule": "node src/schedule/fetch.ts"
+    "fetch-schedule": "node src/schedule/fetch.ts",
+    "export-csv": "node src/schedule/export-csv.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.4",

@@ -23,4 +23,10 @@ describe('entrySearchUrl', () => {
   it('YYYY/M/D の文字列をそのまま開催日の開始にする', () => {
     expect(entrySearchUrl('2026/10/1')).toBe(`${ENTRY_SEARCH_URL}&EventFrom=2026%2F10%2F1`);
   });
+
+  it('終了日を指定すると EventTo も付ける', () => {
+    expect(entrySearchUrl('2026/10/1', '2026/10/31')).toBe(
+      `${ENTRY_SEARCH_URL}&EventFrom=2026%2F10%2F1&EventTo=2026%2F10%2F31`,
+    );
+  });
 });

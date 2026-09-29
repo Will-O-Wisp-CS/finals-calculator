@@ -18,6 +18,7 @@ npm run dev     # 開発サーバー（.claude/launch.json の vite-dev は port
 npm test        # vitest
 npm run build   # tsc + vite build → dist/
 npm run fetch-schedule   # dmp-ranking.com から src/schedule/events.json を更新（Node 専用）
+npm run export-csv -- 2026-10 <出力先.csv>   # 指定月の大会を「開催日,開催地,定員,受付」の CSV に（Node 専用）
 ```
 
 `main` への push で `.github/workflows/deploy.yml` が test → build → Pages デプロイを行う。
@@ -26,7 +27,7 @@ npm run fetch-schedule   # dmp-ranking.com から src/schedule/events.json を�
 ## フォルダ構成
 
 ```
-.claude/     CLAUDE.md（このファイル）、launch.json（開発サーバー設定。git 管理外）
+.claude/     CLAUDE.md（このファイル）、launch.json（開発サーバー設定。git 管理外）、skills/cs-schedule-csv（月別大会一覧 CSV のスキル）
 .github/     GitHub Actions（Pages デプロイ）
 docs/superpowers/specs, plans   設計書と実装計画
 src/         Vite の root。HTML・ソース・テストはすべてここ
@@ -34,7 +35,7 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
   home/      メインページ: main.ts(メニューと参加表明リンク) / icon.jpg(公式Xのアイコン)
   finals/    進出人数計算: index.html / main.ts(DOM) / input.ts / tournament.ts / swiss.ts / finals.ts / format.ts
   points/    ポイント計算: index.html / main.ts(DOM) / input.ts / points.ts
-  schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果)
+  schedule/  大会スケジュール: index.html / main.ts(DOM) / parse.ts / schedule.ts / calendar.ts(祝日) / fetch.ts(Node専用の取得スクリプト) / events.json(取得結果) / csv.ts + export-csv.ts(月別 CSV 出力)
   shared/    全ページ共通: dom.ts(el, card) / menu.ts(ハンバーガーメニュー) / entryLink.ts / parse.ts(ParseResult) / style.css
 ルート直下のファイル   package.json, package-lock.json, tsconfig.json, vite.config.ts, .gitignore のみ
 ```
@@ -73,5 +74,6 @@ src/         Vite の root。HTML・ソース・テストはすべてここ
 - 開催日は黒文字＋マーカー（土＝青 / 日＝赤 / 祝日＝黄 / 平日＝なし、祝日優先）。祝日は外部データを使わず `calendar.ts` で計算する
 - 参加表明は開催日14日前の20:00 JST〜大会開始時刻。ページを開いた時点で判定する
 - 大会がすべて開催済みになった月は表示しない
-- `fetch.ts` は Node で型を取り除いて直接実行するため、`fetch.ts` から import されるファイル内の import は `.ts` 拡張子付きで書く
+- `fetch.ts`・`export-csv.ts` は Node で型を取り除いて直接実行するため、これらから import されるファイル内の import は `.ts` 拡張子付きで書く
+- 月別 CSV は BOM 付き UTF-8・CRLF（Excel 向け）。承認「◎」のみ。検索は `EventFrom`〜`EventTo` で月を指定するので過去の月も出せる
 - `events.json` は bot が更新する。手で編集しない

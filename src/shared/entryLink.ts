@@ -10,7 +10,8 @@ export function buildEntryUrl(from: Date): string {
   return entrySearchUrl(`${from.getFullYear()}/${from.getMonth() + 1}/${from.getDate()}`);
 }
 
-/** 開催日の開始を YYYY/M/D の文字列で指定した「鬼火」検索の URL */
-export function entrySearchUrl(dateText: string): string {
-  return `${ENTRY_SEARCH_URL}&EventFrom=${encodeURIComponent(dateText)}`;
+/** 開催日の範囲を YYYY/M/D の文字列で指定した「鬼火」検索の URL（終了日は省略可） */
+export function entrySearchUrl(fromText: string, toText?: string): string {
+  const from = `${ENTRY_SEARCH_URL}&EventFrom=${encodeURIComponent(fromText)}`;
+  return toText ? `${from}&EventTo=${encodeURIComponent(toText)}` : from;
 }
