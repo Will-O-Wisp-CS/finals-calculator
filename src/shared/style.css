@@ -1064,6 +1064,11 @@ button:focus-visible {
   color: var(--muted);
 }
 
+/* 見出し直下の最初のセクションは .hero の余白だけにする */
+.hero + .hub-heading {
+  margin-top: 0;
+}
+
 .hub-card-static:hover {
   transform: none;
   border-color: var(--border);
