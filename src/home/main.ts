@@ -16,11 +16,11 @@ const updateEntryLink = () => {
 updateEntryLink();
 entryLink.addEventListener('click', updateEntryLink);
 
-// 次の開催日の1開催目をメイン、2開催目をサブのマッチングサイトに割り当てる
+// 次の開催日の1開催目を午前、2開催目を午後のマッチングサイトに割り当てる
 const day = nextEventDay(data.events, new Date());
 const slots = [
-  document.querySelector<HTMLElement>('#matching-main')!,
-  document.querySelector<HTMLElement>('#matching-sub')!,
+  document.querySelector<HTMLElement>('#matching-am')!,
+  document.querySelector<HTMLElement>('#matching-pm')!,
 ];
 slots.forEach((slot, i) => {
   if (!day) {
