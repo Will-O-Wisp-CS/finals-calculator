@@ -12,8 +12,8 @@ export const SITE_PAGES: { id: PageId; href: string; label: string }[] = [
 
 /** サイト外のリンク（ページ一覧の下に区切って並べ、新しいタブで開く） */
 export const EXTERNAL_LINKS: { href: string; label: string }[] = [
-  { href: 'https://nojigikucs.com/users-manage?admin=onibics', label: 'マッチングサイト（メイン）' },
-  { href: 'https://nojigikucs.com/users-manage?admin=onibics-sub', label: 'マッチングサイト（サブ）' },
+  { href: 'https://sugatool.nojigikucs.com/events/b3f717c2-2ed5-44fa-8b97-b2aaa9d86593/entries', label: 'マッチングサイト（メイン）' },
+  { href: 'https://sugatool.nojigikucs.com/events/3cb0381b-2212-453d-992f-11884c86f6f1/entries', label: 'マッチングサイト（サブ）' },
 ];
 
 /** 上部の帯（.site-header）の右端にハンバーガーボタンとページメニューを付ける */
